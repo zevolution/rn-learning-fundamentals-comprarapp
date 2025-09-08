@@ -9,8 +9,14 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <Image source={require("@/assets/logo.png")}/>
-      <PrimaryInput placeholder='Qual a boa pra hoje?'/>
-      <PrimaryButton title='Confirmar' onPress={() => {Alert.alert("Intersection test message")}}/>
+
+      <View style={styles.form}>
+        <PrimaryInput placeholder='Qual a boa pra hoje?'/>
+        <PrimaryButton title='Confirmar' onPress={() => {Alert.alert("Intersection test message")}}/>
+      </View>
+
+      <View style={styles.content}>
+      </View>
     </View>
   );
 }
