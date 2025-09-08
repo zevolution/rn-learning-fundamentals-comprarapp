@@ -7,5 +7,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 36,
     padding: 24,
+    gap: 24
   },
 });
