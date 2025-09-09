@@ -10,7 +10,9 @@ type PurchaseItemData = {
 }
 
 type PurchaseItemProps = {
-  data: PurchaseItemData
+  data: PurchaseItemData,
+  onPress?: () => void;
+  onRemove?: () => void;
 }
 
 export function PurchaseItem({ data }: PurchaseItemProps) {
