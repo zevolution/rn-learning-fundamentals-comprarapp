@@ -7,8 +7,24 @@ import { PrimaryContentFilter } from '@/components/PrimaryContentFilter';
 import { FilterStatus } from '@/types/FilterStatus';
 
 import { styles } from './styles'
+import { PurchaseItem } from '@/components/PurchaseItem';
+
+const getRandomId = (): string => Math.random().toString(36).substring(2);
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE];
+
+const PURCHASE_ITEMS: any[] = [
+  {
+    id: getRandomId(),
+    description: '3 pacotes de café',
+    status: FilterStatus.PENDING
+  },
+  {
+    id: getRandomId(),
+    description: '2 pacotes de arroz',
+    status: FilterStatus.PENDING
+  }
+]
 
 export default function Home() {
   return (
@@ -30,6 +46,9 @@ export default function Home() {
             <Text style={styles.clearButtonText}>Limpar</Text>
           </TouchableOpacity>
         </View>
+
+
+        {PURCHASE_ITEMS.map(item => <PurchaseItem key={item.id} data={item} />)}
       </View>
     </View>
   );
