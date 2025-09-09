@@ -1,4 +1,4 @@
-import { View, Image, Alert } from 'react-native';
+import { View, Image, Alert, TouchableOpacity, Text } from 'react-native';
 
 import { PrimaryButton } from '@/components/PrimaryButton'
 import { PrimaryInput } from '@/components/PrimaryInput'
@@ -7,6 +7,8 @@ import { PrimaryContentFilter } from '@/components/PrimaryContentFilter';
 import { FilterStatus } from '@/types/FilterStatus';
 
 import { styles } from './styles'
+
+const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE];
 
 export default function Home() {
   return (
@@ -19,8 +21,15 @@ export default function Home() {
       </View>
 
       <View style={styles.content}>
-        <PrimaryContentFilter isActive={false} status={FilterStatus.PENDING} />
-        <PrimaryContentFilter isActive={true} status={FilterStatus.DONE} />
+        <View style={styles.header}>
+          {FILTER_STATUS.map((status) => (
+            <PrimaryContentFilter key={status} isActive status={status} />
+          ))}
+
+          <TouchableOpacity style={styles.clearButton}>
+            <Text style={styles.clearButtonText}>Limpar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
