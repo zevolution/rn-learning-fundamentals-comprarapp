@@ -4,6 +4,8 @@ import { CircleCheck, CircleDashed, Trash2 } from 'lucide-react-native'
 
 import { FilterStatus } from "@/types/FilterStatus";
 
+import { styles } from './styles';
+
 type PurchaseItemData = {
   status: FilterStatus,
   description: string
@@ -17,15 +19,15 @@ type PurchaseItemProps = {
 
 export function PurchaseItem({ data }: PurchaseItemProps) {
   return (
-    <View>
+    <View style={styles.container}>
       <TouchableOpacity>
         { data.status === FilterStatus.DONE ? <CircleCheck /> : <CircleDashed /> }
       </TouchableOpacity>
 
-      <Text>{data.description}</Text>
+      <Text style={styles.description}>{data.description}</Text>
 
       <TouchableOpacity>
-        <Trash2></Trash2>
+        <Trash2 color='#828282'></Trash2>
       </TouchableOpacity>
     </View>
   )
