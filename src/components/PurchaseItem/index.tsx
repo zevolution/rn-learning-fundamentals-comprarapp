@@ -1,7 +1,7 @@
 import { View, TouchableOpacity, Text } from "react-native";
+import {  Trash2 } from 'lucide-react-native'
 
-import { CircleCheck, CircleDashed, Trash2 } from 'lucide-react-native'
-
+import { StatusIcon } from "@/components/StatusIcon";
 import { FilterStatus } from "@/types/FilterStatus";
 
 import { styles } from './styles';
@@ -21,7 +21,7 @@ export function PurchaseItem({ data }: PurchaseItemProps) {
   return (
     <View style={styles.container}>
       <TouchableOpacity>
-        { data.status === FilterStatus.DONE ? <CircleCheck /> : <CircleDashed /> }
+        <StatusIcon status={data.status}/>
       </TouchableOpacity>
 
       <Text style={styles.description}>{data.description}</Text>
