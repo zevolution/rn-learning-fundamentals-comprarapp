@@ -50,6 +50,8 @@ export default function Home() {
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.contentList}
+          ItemSeparatorComponent={() => <View style={styles.contentListItemSeparator}/>}
         />
 
       </View>

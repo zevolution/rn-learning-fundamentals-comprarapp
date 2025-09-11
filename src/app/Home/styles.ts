@@ -38,5 +38,14 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     color: '#828282',
     fontWeight: '600',
+  },
+  contentList: {
+    paddingTop: 24,
+    paddingBottom: 62
+  },
+  contentListItemSeparator: {
+    width: '100%',
+    height: 1,
+    backgroundColor: '#EEF0F5'
   }
 });
