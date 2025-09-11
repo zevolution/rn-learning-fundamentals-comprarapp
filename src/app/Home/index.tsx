@@ -1,4 +1,4 @@
-import { View, Image, Alert, TouchableOpacity, Text, ScrollView, FlatList } from 'react-native';
+import { View, Image, Alert, TouchableOpacity, Text, FlatList } from 'react-native';
 
 import { PrimaryButton } from '@/components/PrimaryButton'
 import { PrimaryInput } from '@/components/PrimaryInput'
@@ -44,16 +44,13 @@ export default function Home() {
           </TouchableOpacity>
         </View>
 
-        <View style={{ flexDirection: 'row' }}>
-          <ScrollView>
-            {PURCHASE_ITEMS.map(item => <PurchaseItem key={item.id} data={item} />)}
-          </ScrollView>
-          <FlatList
-            data={PURCHASE_ITEMS}
-            renderItem={({item}) => <PurchaseItem key={item.id} data={item} />}
-            keyExtractor={item => item.id}
-          />
-        </View>
+        <FlatList
+          data={PURCHASE_ITEMS}
+          renderItem={({item}) => <PurchaseItem key={item.id} data={item} />}
+          keyExtractor={item => item.id}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+        />
 
       </View>
     </View>
