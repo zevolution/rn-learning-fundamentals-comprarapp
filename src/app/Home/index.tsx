@@ -1,4 +1,4 @@
-import { View, Image, Alert, TouchableOpacity, Text } from 'react-native';
+import { View, Image, Alert, TouchableOpacity, Text, ScrollView, FlatList } from 'react-native';
 
 import { PrimaryButton } from '@/components/PrimaryButton'
 import { PrimaryInput } from '@/components/PrimaryInput'
@@ -13,18 +13,15 @@ const getRandomId = (): string => Math.random().toString(36).substring(2);
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE];
 
-const PURCHASE_ITEMS: any[] = [
-  {
+const generatePurchaseItem = (): any => {
+  return {
     id: getRandomId(),
-    description: '3 pacotes de café',
-    status: FilterStatus.PENDING
-  },
-  {
-    id: getRandomId(),
-    description: '2 pacotes de arroz',
+    description: `${Math.floor(Math.random() * 100) + 1} pacotes de alguma coisa`,
     status: FilterStatus.PENDING
   }
-]
+}
+
+const PURCHASE_ITEMS: any[] = Array.from({ length: 15 }, generatePurchaseItem)
 
 export default function Home() {
   return (
@@ -47,11 +44,18 @@ export default function Home() {
           </TouchableOpacity>
         </View>
 
+        <View style={{ flexDirection: 'row' }}>
+          <ScrollView>
+            {PURCHASE_ITEMS.map(item => <PurchaseItem key={item.id} data={item} />)}
+          </ScrollView>
+          <FlatList
+            data={PURCHASE_ITEMS}
+            renderItem={({item}) => <PurchaseItem key={item.id} data={item} />}
+            keyExtractor={item => item.id}
+          />
+        </View>
 
-        {PURCHASE_ITEMS.map(item => <PurchaseItem key={item.id} data={item} />)}
       </View>
     </View>
   );
 }
-
-
