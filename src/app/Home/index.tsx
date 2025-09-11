@@ -46,7 +46,14 @@ export default function Home() {
 
         <FlatList
           data={PURCHASE_ITEMS}
-          renderItem={({item}) => <PurchaseItem key={item.id} data={item} />}
+          renderItem={({ item }) => (
+            <PurchaseItem
+              key={item.id}
+              data={item}
+              onPress={() => Alert.alert(`O item \n '${item.description}' \n foi pressionado`)}
+              onRemove={() => Alert.alert(`A lixeira do item \n '${item.description}' \n foi pressionada`)}
+            />
+          )}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}

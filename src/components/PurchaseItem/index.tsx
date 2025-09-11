@@ -17,16 +17,16 @@ type PurchaseItemProps = {
   onRemove?: () => void;
 }
 
-export function PurchaseItem({ data }: PurchaseItemProps) {
+export function PurchaseItem({ data, onPress, onRemove }: PurchaseItemProps) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <StatusIcon status={data.status}/>
       </TouchableOpacity>
 
       <Text style={styles.description}>{data.description}</Text>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onRemove}>
         <Trash2 color='#828282'></Trash2>
       </TouchableOpacity>
     </View>
