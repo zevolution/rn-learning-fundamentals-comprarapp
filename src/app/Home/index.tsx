@@ -27,6 +27,21 @@ const PURCHASE_ITEMS: any[] = Array.from({ length: 15 }, generatePurchaseItem)
 export default function Home() {
   const [filter, setFilter] = useState(FilterStatus.PENDING)
   const [input, setInput] = useState("")
+  const [items, setItems] = useState<any>([])
+
+  function handleAddPurchaseItem() {
+    if (!input.trim()) return Alert.alert("Adicionar", "Pra inserir um item adicione ume breve descrição")
+
+    const newItem = {
+      id: getRandomId(),
+      description: input,
+      status: FilterStatus.PENDING
+    }
+
+    setItems((prevState: any) => [newItem, ...prevState])
+
+    setInput("")
+  }
 
   return (
     <View style={styles.container}>
@@ -34,7 +49,7 @@ export default function Home() {
 
       <View style={styles.form}>
         <PrimaryInput placeholder='Qual a boa pra hoje?' onChangeText={setInput} value={input}/>
-        <PrimaryButton title='Confirmar' onPress={() => {Alert.alert(input)}}/>
+        <PrimaryButton title='Confirmar' onPress={() => handleAddPurchaseItem()}/>
       </View>
 
       <View style={styles.content}>
@@ -54,7 +69,7 @@ export default function Home() {
         </View>
 
         <FlatList
-          data={PURCHASE_ITEMS}
+          data={items}
           renderItem={({ item }) => (
             <PurchaseItem
               key={item.id}
