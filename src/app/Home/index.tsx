@@ -53,9 +53,9 @@ export default function Home() {
           {FILTER_STATUS.map((status) => (
             <PrimaryContentFilter 
               key={status}
-              isActive={internalHandlingType === InternalHandlingType.USEVAR ? filter === status : filterStatus === status}
+              isActive={internalHandlingType !== InternalHandlingType.USEVAR ? filter === status : filterStatus === status}
               status={status}
-              onPress={() => internalHandlingType === InternalHandlingType.USEVAR ? update(status) : setFilterStatus(status) }
+              onPress={() => internalHandlingType !== InternalHandlingType.USEVAR ? update(status) : setFilterStatus(status) }
             />
           ))}
 
