@@ -47,5 +47,10 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: 1,
     backgroundColor: '#EEF0F5'
+  },
+  contentListEmpty: {
+    fontSize: 14,
+    color: '#828282',
+    textAlign: 'center'
   }
 });

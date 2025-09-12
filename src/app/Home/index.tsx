@@ -88,6 +88,7 @@ export default function Home() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.contentList}
           ItemSeparatorComponent={() => <View style={styles.contentListItemSeparator}/>}
+          ListEmptyComponent={() => <Text style={styles.contentListEmpty}>Nenhum item adicionado até o momento</Text>}
         />
 
       </View>
