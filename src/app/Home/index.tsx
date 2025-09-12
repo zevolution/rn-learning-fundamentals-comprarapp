@@ -33,7 +33,7 @@ export default function Home() {
       <Image source={require("@/assets/logo.png")}/>
 
       <View style={styles.form}>
-        <PrimaryInput placeholder='Qual a boa pra hoje?' onChangeText={(value) => setInput(value)} value={input}/>
+        <PrimaryInput placeholder='Qual a boa pra hoje?' onChangeText={setInput} value={input}/>
         <PrimaryButton title='Confirmar' onPress={() => {Alert.alert(input)}}/>
       </View>
 
