@@ -26,14 +26,15 @@ const PURCHASE_ITEMS: any[] = Array.from({ length: 15 }, generatePurchaseItem)
 
 export default function Home() {
   const [filter, setFilter] = useState(FilterStatus.PENDING)
+  const [input, setInput] = useState<string>()
 
   return (
     <View style={styles.container}>
       <Image source={require("@/assets/logo.png")}/>
 
       <View style={styles.form}>
-        <PrimaryInput placeholder='Qual a boa pra hoje?'/>
-        <PrimaryButton title='Confirmar' onPress={() => {Alert.alert("Intersection test message")}}/>
+        <PrimaryInput placeholder='Qual a boa pra hoje?' onChangeText={(value) => setInput(value)} value={input}/>
+        <PrimaryButton title='Confirmar' onPress={() => {Alert.alert(input || '')}}/>
       </View>
 
       <View style={styles.content}>
