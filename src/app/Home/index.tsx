@@ -43,6 +43,11 @@ export default function Home() {
     setInput("")
   }
 
+  function handleRemovePurchaseItem(itemToBeRemoved: any) {
+    const updatedItems = items.filter((item: any) => item.id !== itemToBeRemoved.id)
+    setItems(updatedItems)
+  }
+
   return (
     <View style={styles.container}>
       <Image source={require("@/assets/logo.png")}/>
@@ -75,7 +80,7 @@ export default function Home() {
               key={item.id}
               data={item}
               onPress={() => Alert.alert(`O item \n '${item.description}' \n foi pressionado`)}
-              onRemove={() => Alert.alert(`A lixeira do item \n '${item.description}' \n foi pressionada`)}
+              onRemove={() => handleRemovePurchaseItem(item)}
             />
           )}
           keyExtractor={item => item.id}
