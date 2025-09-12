@@ -1,4 +1,5 @@
 import { View, Image, Alert, TouchableOpacity, Text, FlatList } from 'react-native';
+import { useState } from 'react'
 
 import { PrimaryButton } from '@/components/PrimaryButton'
 import { PrimaryInput } from '@/components/PrimaryInput'
@@ -23,7 +24,21 @@ const generatePurchaseItem = (): any => {
 
 const PURCHASE_ITEMS: any[] = Array.from({ length: 15 }, generatePurchaseItem)
 
+enum InternalHandlingType {
+  USEVAR = 'use-var',
+  USESTATE = 'use-state'
+}
+
 export default function Home() {
+  const [filterStatus, setFilterStatus] = useState(FilterStatus.PENDING)
+  const internalHandlingType = InternalHandlingType.USEVAR
+  let filter = FilterStatus.DONE
+
+  function update(value: FilterStatus) {
+    console.log(value)
+    filter = value
+  }
+
   return (
     <View style={styles.container}>
       <Image source={require("@/assets/logo.png")}/>
@@ -36,7 +51,12 @@ export default function Home() {
       <View style={styles.content}>
         <View style={styles.header}>
           {FILTER_STATUS.map((status) => (
-            <PrimaryContentFilter key={status} isActive status={status} />
+            <PrimaryContentFilter 
+              key={status}
+              isActive={internalHandlingType === InternalHandlingType.USEVAR ? filter === status : filterStatus === status}
+              status={status}
+              onPress={() => internalHandlingType === InternalHandlingType.USEVAR ? update(status) : setFilterStatus(status) }
+            />
           ))}
 
           <TouchableOpacity style={styles.clearButton}>
