@@ -30,7 +30,7 @@ export default function Home() {
   const [items, setItems] = useState<any>([])
 
   function handleAddPurchaseItem() {
-    if (!input.trim()) return Alert.alert("Adicionar", "Pra inserir um item adicione ume breve descrição")
+    if (!input.trim()) return Alert.alert("Adicionar", "Pra inserir um item adicione uma breve descrição")
 
     const newItem = {
       id: getRandomId(),
