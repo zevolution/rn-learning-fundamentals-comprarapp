@@ -1,5 +1,5 @@
 import { View, Image, Alert, TouchableOpacity, Text, FlatList } from 'react-native';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { PrimaryButton } from '@/components/PrimaryButton'
 import { PrimaryInput } from '@/components/PrimaryInput'
@@ -28,6 +28,7 @@ export default function Home() {
   const [filter, setFilter] = useState(FilterStatus.PENDING)
   const [input, setInput] = useState("")
   const [items, setItems] = useState<any>([])
+  const [itemsByActiveStatus, setItemsByActiveStatus] = useState<any>([])
 
   function handleAddPurchaseItem() {
     if (!input.trim()) return Alert.alert("Adicionar", "Pra inserir um item adicione uma breve descrição")
@@ -47,6 +48,15 @@ export default function Home() {
     const updatedItems = items.filter((item: any) => item.id !== itemToBeRemoved.id)
     setItems(updatedItems)
   }
+
+  function getItemsByStatus() {
+    const itemsByStatus = items.filter((item: any) => item.status === filter)
+    setItemsByActiveStatus(itemsByStatus)
+  }
+
+  useEffect(() => {
+    getItemsByStatus()
+  }, [filter, items])
 
   return (
     <View style={styles.container}>
@@ -74,7 +84,7 @@ export default function Home() {
         </View>
 
         <FlatList
-          data={items}
+          data={itemsByActiveStatus}
           renderItem={({ item }) => (
             <PurchaseItem
               key={item.id}
