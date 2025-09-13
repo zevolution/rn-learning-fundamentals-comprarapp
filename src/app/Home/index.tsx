@@ -49,6 +49,17 @@ export default function Home() {
     setItems(updatedItems)
   }
 
+  function handleClearPurchaseItems() {
+    Alert.alert('Limpar', 'Deseja remover todos os itens?',[
+      { text: 'Não', style: 'cancel' },
+      { text: 'Sim' , onPress: () => handleClearPurchaseItemsFromStorage()}
+    ])
+  }
+
+  function handleClearPurchaseItemsFromStorage() {
+    setItems([])
+  }
+
   function getItemsByStatus() {
     const itemsByStatus = items.filter((item: any) => item.status === filter)
     setItemsByActiveStatus(itemsByStatus)
@@ -78,7 +89,7 @@ export default function Home() {
             />
           ))}
 
-          <TouchableOpacity style={styles.clearButton}>
+          <TouchableOpacity style={styles.clearButton} onPress={() => handleClearPurchaseItems()}>
             <Text style={styles.clearButtonText}>Limpar</Text>
           </TouchableOpacity>
         </View>
