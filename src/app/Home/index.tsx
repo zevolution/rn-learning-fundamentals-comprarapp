@@ -40,6 +40,7 @@ export default function Home() {
     }
 
     setItems((prevState: any) => [newItem, ...prevState])
+    setFilter(FilterStatus.PENDING)
 
     setInput("")
   }
