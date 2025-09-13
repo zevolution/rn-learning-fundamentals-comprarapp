@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react'
 import { PrimaryButton } from '@/components/PrimaryButton'
 import { PrimaryInput } from '@/components/PrimaryInput'
 import { PrimaryContentFilter } from '@/components/PrimaryContentFilter';
+import { PurchaseItem } from '@/components/PurchaseItem';
 
 import { FilterStatus } from '@/types/FilterStatus';
 
 import { styles } from './styles'
-import { PurchaseItem } from '@/components/PurchaseItem';
 
 const getRandomId = (): string => Math.random().toString(36).substring(2);
 
