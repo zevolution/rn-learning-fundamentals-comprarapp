@@ -35,3 +35,6 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# '.nosync' pattern to folders and files to be ignored by iCloud
+*.nosync
