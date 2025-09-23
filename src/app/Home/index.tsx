@@ -14,6 +14,11 @@ const getRandomId = (): string => Math.random().toString(36).substring(2);
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE];
 
+const REVERSE_STATUS: any = {
+  [FilterStatus.PENDING]: FilterStatus.DONE,
+  [FilterStatus.DONE]: FilterStatus.PENDING
+}
+
 const generatePurchaseItem = (): any => {
   return {
     id: getRandomId(),
@@ -61,10 +66,10 @@ export default function Home() {
     setItems([])
   }
 
-  function handleCompletePurchaseItem(itemToBeCompleted: any) {
+  function handlePurchaseItem(itemToBeCompleted: any) {
     const updatedItems = items.map((item: any) =>
       item.id === itemToBeCompleted.id
-        ? { ...item, status: FilterStatus.DONE }
+        ? { ...item, status: REVERSE_STATUS[item.status] }
         : item
     );
     setItems(updatedItems)
@@ -110,7 +115,7 @@ export default function Home() {
             <PurchaseItem
               key={item.id}
               data={item}
-              onPress={() => handleCompletePurchaseItem(item)}
+              onPress={() => handlePurchaseItem(item)}
               onRemove={() => handleRemovePurchaseItem(item)}
             />
           )}
