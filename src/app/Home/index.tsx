@@ -14,7 +14,7 @@ const getRandomId = (): string => Math.random().toString(36).substring(2);
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE];
 
-const REVERSE_STATUS: any = {
+const REVERSE_STATUS: Record<FilterStatus, FilterStatus> = {
   [FilterStatus.PENDING]: FilterStatus.DONE,
   [FilterStatus.DONE]: FilterStatus.PENDING
 }
