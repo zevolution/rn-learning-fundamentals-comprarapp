@@ -69,7 +69,7 @@ export default function Home() {
   function handlePurchaseItem(itemToBeCompleted: any) {
     const updatedItems = items.map((item: any) =>
       item.id === itemToBeCompleted.id
-        ? { ...item, status: REVERSE_STATUS[item.status] }
+        ? { ...item, status: REVERSE_STATUS[item.status as FilterStatus] }
         : item
     );
     setItems(updatedItems)
