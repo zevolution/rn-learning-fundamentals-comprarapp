@@ -61,6 +61,15 @@ export default function Home() {
     setItems([])
   }
 
+  function handleCompletePurchaseItem(itemToBeCompleted: any) {
+    const updatedItems = items.map((item: any) =>
+      item.id === itemToBeCompleted.id
+        ? { ...item, status: FilterStatus.DONE }
+        : item
+    );
+    setItems(updatedItems)
+  }
+
   function getItemsByStatus() {
     const itemsByStatus = items.filter((item: any) => item.status === filter)
     setItemsByActiveStatus(itemsByStatus)
@@ -101,7 +110,7 @@ export default function Home() {
             <PurchaseItem
               key={item.id}
               data={item}
-              onPress={() => Alert.alert(`O item \n '${item.description}' \n foi pressionado`)}
+              onPress={() => handleCompletePurchaseItem(item)}
               onRemove={() => handleRemovePurchaseItem(item)}
             />
           )}
