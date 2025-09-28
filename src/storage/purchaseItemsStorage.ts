@@ -32,7 +32,11 @@ async function set(purchaseItems: PurchaseItemStorage[]): Promise<void> {
 }
 
 async function add(purchaseItem: PurchaseItemStorage): Promise<PurchaseItemStorage[]> {
-  throw new Error("Not implemented yet")
+  const storedPurchaseItems = await get();
+  const updatedItems = [purchaseItem, ...storedPurchaseItems];
+  await set(updatedItems)
+
+  return updatedItems;
 }
 
 async function remove(id: string): Promise<void> {
