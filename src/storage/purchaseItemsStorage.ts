@@ -20,7 +20,8 @@ async function get(): Promise<PurchaseItemStorage[]> {
 }
 
 async function getByStatus(status: FilterStatus): Promise<PurchaseItemStorage[]> {
-  throw new Error("Not implemented yet")
+  const storedPurchaseItems = await get();
+  return storedPurchaseItems.filter((item) => item.status === status)
 }
 
 async function set(purchaseItems: PurchaseItemStorage[]): Promise<void> {
