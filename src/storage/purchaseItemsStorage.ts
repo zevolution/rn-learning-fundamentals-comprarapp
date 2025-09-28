@@ -40,7 +40,9 @@ async function add(purchaseItem: PurchaseItemStorage): Promise<PurchaseItemStora
 }
 
 async function remove(id: string): Promise<void> {
-
+  const storedPurchaseItems = await get()
+  const updatedItems = storedPurchaseItems.filter((item) => item.id !== id)
+  await set(updatedItems);
 }
 
 async function clear(): Promise<void> {
