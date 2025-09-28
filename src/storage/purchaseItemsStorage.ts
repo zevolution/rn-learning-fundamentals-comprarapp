@@ -11,7 +11,12 @@ export type PurchaseItemStorage = {
 }
 
 async function get(): Promise<PurchaseItemStorage[]> {
-  throw new Error("Not implemented yet")
+  try {
+    const storage = await AsyncStorage.getItem(PURCHASEITEM_STORAGE_KEY);
+    return storage ? JSON.parse(storage) : []
+  } catch (error) {
+    throw new Error(`PURCHASEITEMS_STORAGE_GET: ${error}`)
+  }
 }
 
 async function getByStatus(status: FilterStatus): Promise<PurchaseItemStorage[]> {
