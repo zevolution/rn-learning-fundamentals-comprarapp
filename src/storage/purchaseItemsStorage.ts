@@ -46,7 +46,7 @@ async function remove(id: string): Promise<void> {
 }
 
 async function clear(): Promise<void> {
-  throw new Error("Not implemented yet")
+  await set([])
 }
 
 async function toggleStatus(id: string): Promise<void> {
