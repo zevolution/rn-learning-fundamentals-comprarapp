@@ -25,8 +25,12 @@ async function get(): Promise<PurchaseItemStorage[]> {
 }
 
 async function getByStatus(status: FilterStatus): Promise<PurchaseItemStorage[]> {
-  const storedPurchaseItems = await get();
-  return storedPurchaseItems.filter((item) => item.status === status)
+  try {
+    const storedPurchaseItems = await get();
+    return storedPurchaseItems.filter((item) => item.status === status)
+  } catch (error) {
+    throw new Error(`PURCHASEITEMS_STORAGE_GETBYSTATUS: ${error}`)
+  }
 }
 
 async function set(purchaseItems: PurchaseItemStorage[]): Promise<void> {
@@ -38,31 +42,47 @@ async function set(purchaseItems: PurchaseItemStorage[]): Promise<void> {
 }
 
 async function add(purchaseItem: PurchaseItemStorage): Promise<PurchaseItemStorage[]> {
-  const storedPurchaseItems = await get();
-  const updatedItems = [purchaseItem, ...storedPurchaseItems];
-  await set(updatedItems)
+  try {
+    const storedPurchaseItems = await get();
+    const updatedItems = [purchaseItem, ...storedPurchaseItems];
+    await set(updatedItems)
 
-  return updatedItems;
+    return updatedItems;
+  } catch (error) {
+      throw new Error(`PURCHASEITEMS_STORAGE_ADD: ${error}`)
+  }
 }
 
 async function remove(id: string): Promise<void> {
-  const storedPurchaseItems = await get()
-  const updatedItems = storedPurchaseItems.filter((item) => item.id !== id)
-  await set(updatedItems);
+  try {
+    const storedPurchaseItems = await get()
+    const updatedItems = storedPurchaseItems.filter((item) => item.id !== id)
+    await set(updatedItems);
+  } catch (error) {
+    throw new Error(`PURCHASEITEMS_STORAGE_REMOVE: ${error}`)
+  }
 }
 
 async function clear(): Promise<void> {
-  await set([])
+  try {
+    await set([])
+  } catch (error) {
+    throw new Error(`PURCHASEITEMS_STORAGE_CLEAR: ${error}`)
+  }
 }
 
 async function toggleStatus(id: string): Promise<void> {
-  const storedPurchaseItems = await get()
-  const updatedItems = storedPurchaseItems.map((item: any) =>
-        item.id === id
-          ? { ...item, status: REVERSE_STATUS[item.status as FilterStatus] }
-          : item
-      );
-  await set(updatedItems)
+  try {
+    const storedPurchaseItems = await get()
+    const updatedItems = storedPurchaseItems.map((item: any) =>
+          item.id === id
+            ? { ...item, status: REVERSE_STATUS[item.status as FilterStatus] }
+            : item
+        );
+    await set(updatedItems)
+  } catch (error) {
+    throw new Error(`PURCHASEITEMS_STORAGE_TOGGLESTATUS: ${error}`)
+  }
 }
 
 export const purchaseItemsStorage = {
