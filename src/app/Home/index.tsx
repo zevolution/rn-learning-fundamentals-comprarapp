@@ -8,34 +8,20 @@ import { PurchaseItem } from '@/components/PurchaseItem';
 
 import { FilterStatus } from '@/types/FilterStatus';
 
+import { purchaseItemsStorage } from '@/storage/purchaseItemsStorage'
+
 import { styles } from './styles'
 
 const getRandomId = (): string => Math.random().toString(36).substring(2);
 
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE];
 
-const REVERSE_STATUS: Record<FilterStatus, FilterStatus> = {
-  [FilterStatus.PENDING]: FilterStatus.DONE,
-  [FilterStatus.DONE]: FilterStatus.PENDING
-}
-
-const generatePurchaseItem = (): any => {
-  return {
-    id: getRandomId(),
-    description: `${Math.floor(Math.random() * 100) + 1} pacotes de alguma coisa`,
-    status: FilterStatus.PENDING
-  }
-}
-
-const PURCHASE_ITEMS: any[] = Array.from({ length: 15 }, generatePurchaseItem)
-
 export default function Home() {
   const [filter, setFilter] = useState(FilterStatus.PENDING)
   const [input, setInput] = useState("")
   const [items, setItems] = useState<any>([])
-  const [itemsByActiveStatus, setItemsByActiveStatus] = useState<any>([])
 
-  function handleAddPurchaseItem() {
+  async function handleAddPurchaseItem() {
     if (!input.trim()) return Alert.alert("Adicionar", "Pra inserir um item adicione uma breve descrição")
 
     const newItem = {
@@ -44,15 +30,16 @@ export default function Home() {
       status: FilterStatus.PENDING
     }
 
-    setItems((prevState: any) => [newItem, ...prevState])
-    setFilter(FilterStatus.PENDING)
+    await purchaseItemsStorage.add(newItem)
+    await getItemsByStatus()
 
+    setFilter(FilterStatus.PENDING)
     setInput("")
   }
 
-  function handleRemovePurchaseItem(itemToBeRemoved: any) {
-    const updatedItems = items.filter((item: any) => item.id !== itemToBeRemoved.id)
-    setItems(updatedItems)
+  async function handleRemovePurchaseItem(itemToBeRemoved: any) {
+    await purchaseItemsStorage.remove(itemToBeRemoved.id)
+    await getItemsByStatus();
   }
 
   function handleClearPurchaseItems() {
@@ -62,27 +49,29 @@ export default function Home() {
     ])
   }
 
-  function handleClearPurchaseItemsFromStorage() {
-    setItems([])
+  async function handleClearPurchaseItemsFromStorage() {
+    try {
+      await purchaseItemsStorage.clear()
+      setItems([])
+    } catch (error) {
+      console.log(error)
+      Alert.alert("Limpar", "Não foi possível limpar todos os itens.")
+    }
   }
 
-  function handleTogglePurchaseItemStatus(itemToBeCompleted: any) {
-    const updatedItems = items.map((item: any) =>
-      item.id === itemToBeCompleted.id
-        ? { ...item, status: REVERSE_STATUS[item.status as FilterStatus] }
-        : item
-    );
-    setItems(updatedItems)
+  async function handleTogglePurchaseItemStatus(itemToBeCompleted: any) {
+    await purchaseItemsStorage.toggleStatus(itemToBeCompleted.id)
+    await getItemsByStatus()
   }
 
-  function getItemsByStatus() {
-    const itemsByStatus = items.filter((item: any) => item.status === filter)
-    setItemsByActiveStatus(itemsByStatus)
+  async function getItemsByStatus() {
+    const items = await purchaseItemsStorage.getByStatus(filter)
+    setItems(items)
   }
 
   useEffect(() => {
     getItemsByStatus()
-  }, [filter, items])
+  }, [filter])
 
   return (
     <View style={styles.container}>
@@ -110,7 +99,7 @@ export default function Home() {
         </View>
 
         <FlatList
-          data={itemsByActiveStatus}
+          data={items}
           renderItem={({ item }) => (
             <PurchaseItem
               key={item.id}
