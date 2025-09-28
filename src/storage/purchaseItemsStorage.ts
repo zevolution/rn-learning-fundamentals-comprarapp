@@ -4,6 +4,11 @@ import { FilterStatus } from "@/types/FilterStatus";
 
 const PURCHASEITEM_STORAGE_KEY = "@comprar:purchase:items"
 
+const REVERSE_STATUS: Record<FilterStatus, FilterStatus> = {
+  [FilterStatus.PENDING]: FilterStatus.DONE,
+  [FilterStatus.DONE]: FilterStatus.PENDING
+}
+
 export type PurchaseItemStorage = {
   id: string,
   status: FilterStatus,
@@ -51,7 +56,13 @@ async function clear(): Promise<void> {
 }
 
 async function toggleStatus(id: string): Promise<void> {
-  throw new Error("Not implemented yet")
+  const storedPurchaseItems = await get()
+  const updatedItems = storedPurchaseItems.map((item: any) =>
+        item.id === id
+          ? { ...item, status: REVERSE_STATUS[item.status as FilterStatus] }
+          : item
+      );
+  await set(updatedItems)
 }
 
 export const purchaseItemsStorage = {
