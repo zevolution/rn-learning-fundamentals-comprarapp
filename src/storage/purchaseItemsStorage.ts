@@ -19,7 +19,11 @@ async function getByStatus(status: FilterStatus): Promise<PurchaseItemStorage[]>
 }
 
 async function set(purchaseItems: PurchaseItemStorage[]): Promise<void> {
-  throw new Error("Not implemented yet")
+  try {
+    await AsyncStorage.setItem(PURCHASEITEM_STORAGE_KEY, JSON.stringify(purchaseItems));
+  } catch (error) {
+    throw new Error(`PURCHASEITEMS_STORAGE_SET: ${error}`)
+  }
 }
 
 async function add(purchaseItem: PurchaseItemStorage): Promise<PurchaseItemStorage[]> {
