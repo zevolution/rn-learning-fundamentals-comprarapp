@@ -66,7 +66,7 @@ export default function Home() {
     setItems([])
   }
 
-  function handlePurchaseItem(itemToBeCompleted: any) {
+  function handleTogglePurchaseItemStatus(itemToBeCompleted: any) {
     const updatedItems = items.map((item: any) =>
       item.id === itemToBeCompleted.id
         ? { ...item, status: REVERSE_STATUS[item.status as FilterStatus] }
@@ -115,7 +115,7 @@ export default function Home() {
             <PurchaseItem
               key={item.id}
               data={item}
-              onPress={() => handlePurchaseItem(item)}
+              onPress={() => handleTogglePurchaseItemStatus(item)}
               onRemove={() => handleRemovePurchaseItem(item)}
             />
           )}
