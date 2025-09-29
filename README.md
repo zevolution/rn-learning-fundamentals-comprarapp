@@ -127,8 +127,8 @@ After these steps, we're able to try to reproduce everything we watched in the c
 As for the implementation approach, here I did something new. Unlike the backend, the frontend API provides a clear visual progression of how we started and how we ended. I tried to commit frequently, step by step, so that each commit brings a significant improvement to the code or interface! This way, anyone who watches the _<ins>demo below<ins>_ or looks at the code from the first commit can learn, understand, and evolve alongside me as I was building the project.
 
 **Demonstration** <br>
-*GIF demonstration under construction: coming soon! ...* 🚧🛠️
-<img src="https://d1rckomkn4u8p2.cloudfront.net/projects/snoke-bot/public/images/simple-loading.gif" alt="Simple-Loading-GIF" width="15" height="15">
+
+https://github.com/user-attachments/assets/31dc9387-3fce-48cc-84d0-5e1654b0d4a2
 
 <p align="right">
     <a href="#top">
