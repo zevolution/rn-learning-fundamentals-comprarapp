@@ -65,6 +65,12 @@ ComprarApp is a "to buy" todo list app I built during [Rocketseat's](https://www
 
 </div>
 
+<p align="right">
+    <a href="#top">
+        <img src="https://img.shields.io/badge/back_to_top-🚀-blue" alt="back to top" />
+    </a>
+</p>
+
 ---
 
 <div id="learned-skills">
